@@ -14,17 +14,15 @@
 //
 // AppRegistry.registerComponent('App', () => Root);
 
-
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
 'use strict';
 
-import react = from 'react-native';
+import React from 'react-native';
 let {AppRegistry, StyleSheet, Text, View, TextInput} = React;
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
 
   parent: {
     padding: 16
@@ -40,24 +38,40 @@ var styles = StyleSheet.create({
     fontStyle: 'italic'
   }
 });
+//
+// var a2 = a.map(function(s){ return s.length });
+//
+// var a3 = a.map( s => s.length );
 
-var Dictionary = React.createClass({
-  render: function() {
-getIntialState : ()
 
-    return (
+getInitialState: () => {
+  return {input: '', output: ''};
+}
+
+let App = React.createClass({
+
+
+  render: () => {
+
+
+    return(
+
       <View style= {styles.parent}>
         <Text>
           Type something in english
         </Text>
-        <TextInput/>
+
+        <TextInput text= {this.state.input.bind(this)} onChange={(e) => this.setState({input: e})}/>
+
         <Text style= {styles.germanLabel}>
           Its German equivalent is:
         </Text>
-        <Text style= {styles.germanWord}></Text>
+        <Text style= {styles.germanWord}>
+          {this.state.output}
+        </Text>
       </View>
     );
   }
 });
 
-AppRegistry.registerComponent('Dictionary', () => Dictionary);
+AppRegistry.registerComponent('App', () => App);
