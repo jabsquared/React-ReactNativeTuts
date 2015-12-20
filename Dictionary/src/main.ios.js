@@ -22,6 +22,10 @@
 
 import React from 'react-native';
 let {AppRegistry, StyleSheet, Text, View, TextInput} = React;
+import english_german from ('english_german.json');
+
+
+
 const styles = StyleSheet.create({
 
   parent: {
@@ -43,16 +47,24 @@ const styles = StyleSheet.create({
 //
 // var a3 = a.map( s => s.length );
 
-
-getInitialState: () => {
-  return {input: '', output: ''};
-}
-
 let App = React.createClass({
 
+  getInitialState: () => {
+    return {input: '', output: ''};
+  },
+
+  showMeaning: () => {
+    var meaning = this.state.input in english_german ?
+                      english_german[this.state.input] :
+                      "Not Found";
+  }
+
+  this.setState({
+      output: meaning
+  });
+}
 
   render: () => {
-
 
     return(
 
@@ -61,7 +73,10 @@ let App = React.createClass({
           Type something in english
         </Text>
 
-        <TextInput text= {this.state.input.bind(this)} onChange={(e) => this.setState({input: e})}/>
+        <React.TextInput text= { this.state.input }
+          onChangeText={(e) => this.setState({input: e})}
+          onSubmitEditing = {this.showMeaning}
+          />
 
         <Text style= {styles.germanLabel}>
           Its German equivalent is:
