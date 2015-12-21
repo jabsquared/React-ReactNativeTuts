@@ -18,6 +18,7 @@
     "node": ">=4"
   },
   "dependencies": {
+    "json-loader": "^0.5.4",
     "react-native": "0.17.0",
     "webpack": "^2.0.1-beta"
   },

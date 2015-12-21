@@ -3,6 +3,7 @@
 
   var path = require('path');
   var webpack = require('webpack');
+  var jsonLoader = require('json-loader');
 
   module.exports = {
     debug: true,
@@ -16,33 +17,34 @@
       filename: '[name].js',
     },
     module: {
-      preLoaders: [
-        {
-          test: /\.(js|jsx|es6)$/,
-          include: path.resolve(__dirname, 'src'),
-          loader: 'eslint-loader',
+      preLoaders: [{
+        test: /\.(js|jsx|es6)$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'eslint-loader',
+      }],
+      loaders: [{
+        test: /\.js$/,
+        include: /node_modules\/react-native/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          presets: ['es2015', 'stage-1', 'react']
         }
-      ],
-      loaders: [
-        {
-          test: /\.js$/,
-          include: /node_modules\/react-native/,
-          loader: 'babel',
-          query: {
-            cacheDirectory: true,
-            presets: ['es2015', 'stage-1', 'react']
-          }
-        },
-        {
-          test: /\.(js|jsx|es6)$/,
-          exclude: /node_modules/,
-          loader: 'babel',
-          query: {
-            cacheDirectory: true,
-            presets: ['es2015', 'stage-1', 'react']
-          }
+      }, {
+        test: /\.(js|jsx|es6)$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          presets: ['es2015', 'stage-1', 'react']
         }
-      ]
-    }
+      }, ]
+    },
+    module: {
+      loaders: [{
+        test: /\.json$/,
+        loader: 'json'
+      }]
+    },
   };
 }());
